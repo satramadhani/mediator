@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Mediator.Impl;
 
-internal class Mediator(IServiceProvider provider) : IMediator
+public class Mediator(IServiceProvider provider) : IMediator
 {
     private static readonly ConcurrentDictionary<Type, Type> VoidHandlerTypeCache = new();
     private static readonly ConcurrentDictionary<Type, Type> ResultHandlerTypeCache = new();
