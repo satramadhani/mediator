@@ -1,5 +1,100 @@
-bin/
-obj/
-/packages/
-riderModule.iml
-/_ReSharper.Caches/
+## .gitignore for modern .NET 10 Web API projects.
+##
+## References:
+## https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
+## https://github.com/github/gitignore/blob/main/Dotnet.gitignore
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+
+# .NET / NuGet
+project.lock.json
+project.fragment.lock.json
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+# ASP.NET
+ScaffoldingReadMe.txt
+*.[Pp]ublish.xml
+*.azurePubxml
+*.pubxml
+*.publishproj
+PublishScripts/
+
+# Entity Framework / SQL Server
+*.mdf
+*.ldf
+*.ndf
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+CodeCoverage/
+BenchmarkDotNet.Artifacts/
+
+# IDE - Visual Studio
+.vs/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.log
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+.builds
+*.binlog
+MigrationBackup/
+*.GhostDoc.xml
+
+# IDE - JetBrains Rider / ReSharper
+.idea/
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Environment & Secrets
+.env
+*.pfx
+*.publishsettings
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Custom user-secrets
+user-secrets.txt
+web.config
