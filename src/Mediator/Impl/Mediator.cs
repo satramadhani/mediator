@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Concurrent;
 using System.Reflection;
 
@@ -7,6 +8,7 @@ public class Mediator(IServiceProvider provider) : IMediator
 {
     private static readonly ConcurrentDictionary<Type, Type> VoidHandlerTypeCache = new();
     private static readonly ConcurrentDictionary<Type, Type> ResultHandlerTypeCache = new();
+    private static readonly ConcurrentDictionary<Type, Type> NotificationHandlerTypeCache = new();
     private static readonly ConcurrentDictionary<Type, MethodInfo> MethodCache = new();
 
     public async Task SendAsync(IRequest request, CancellationToken cancellationToken = default)
@@ -41,6 +43,24 @@ public class Mediator(IServiceProvider provider) : IMediator
 
         var method = MethodCache.GetOrAdd(handlerType, t => t.GetMethod(nameof(IRequestHandler<,>.HandleAsync))!);
         return await (Task<TResult>)method.Invoke(handler, [request, cancellationToken])!;
+    }
+    
+    public async Task PublishAsync(INotification notification, CancellationToken cancellationToken = default)
+    {
+        var notificationType = notification.GetType();
+        var handlerType = NotificationHandlerTypeCache.GetOrAdd(
+            notificationType,
+            t => typeof(INotificationHandler<>).MakeGenericType(t));
+
+        var handlers = provider.GetServices(handlerType);
+
+        foreach (var handler in handlers)
+        {
+            if (handler == null) continue;
+
+            var method = MethodCache.GetOrAdd(handler.GetType(), t => t.GetMethod(nameof(INotificationHandler<>.HandleAsync))!);
+            await (Task)method.Invoke(handler, [notification, cancellationToken])!;
+        }
     }
 }
 
