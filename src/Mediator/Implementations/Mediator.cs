@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Concurrent;
 using System.Reflection;
 
-namespace Mediator.Impl;
+namespace Mediator.Implementations;
 
 public class Mediator(IServiceProvider provider) : IMediator
 {
